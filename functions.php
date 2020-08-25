@@ -19,5 +19,11 @@ $diretorio_filho = get_stylesheet_directory();
 
 
 /**/
-require_once($diretorio_filho . '/cpt-agendamento.php');
+require_once($diretorio_filho . '/cpt_consulta.php');
+
+/*meta box para dados do agendamento*/
+require_once($diretorio_filho . '/meta_box_agendamento.php');
+
+/* arquivo responsavel por inseir meta dados no usuario especialista*/
+require_once($diretorio_filho . '/cpt_calendario.php');
  ?>

@@ -8,9 +8,9 @@ $layout = onepress_get_layout();
  * @since 2.0.0
  * @see onepress_display_page_title
  */
-do_action( 'onepress_page_before_content' );
+//do_action( 'onepress_page_before_content' );
 
-$campus = esc_attr( get_post_meta( get_the_ID(), 'campus', true));
+$remedio = esc_attr( get_post_meta( get_the_ID(), 'remedio', true));
 
 ?>
 
@@ -43,47 +43,28 @@ $campus = esc_attr( get_post_meta( get_the_ID(), 'campus', true));
 			        
 				</header><!-- .entry-header -->
 
-				<?php if (has_excerpt()) : ?>
-					<h2>descrição: </h2>
-					<?php the_excerpt(); ?>
-				<?php endif; ?>
+				<?php // if (has_excerpt()) : ?>
+					<!-- <h2>descrição: </h2> -->
+					<?php // the_excerpt(); ?>
+				<?php // endif; ?>
 
-				<?php if( $instituicao_pertencente) : ?>
-					<p>Instituição: <?php echo $instituicao_pertencente; ?></p>
-				<?php endif; ?>
-				
-				<?php if( $tutor): ?>
-					<p class="">Tutor: <?php echo $tutor; ?></p>
-				<?php endif; ?>			
-				
-				<?php if( $qtd_integrantes ): ?>
-					<p >Quantidade de Membros: <?php echo $qtd_integrantes; ?> petianos</p>
-				<?php endif; ?>
+				<h3>Dados da consulta: </h3> 	
+				<?php 
+				$custom_fields = get_post_custom( get_the_ID() );
+				//$my_custom_field = $custom_fields['my_custom_field'];
+				//var_dump($custom_fields);
+				echo "custons:";
+				foreach ( $custom_fields as $key => $value ):
+					//var_dump($key);
+					echo $key . ": " . $value[0] . "<br />";
+				endforeach;
+ 				?>
 
-				<p>
-					<?php if( $cidade  ): ?>
-						<?php echo $cidade . ' - '; ?>
-					<?php endif; ?>
-					<?php if ($estado): ?>
-						<?php echo $estado; ?>
-					<?php endif; ?>
-				</p>
 
-				<?php if ($campus): ?>
-					<p><?php echo 'campus: '.$campus; ?></p>
-				<?php endif; ?>
-
-				<?php if( $link_site ): ?>
-					<p class="">
-						<a class="btn btn-primary" href="<?php echo $link_site; ?>" role="button" >
-						Venha conferir nosso site
-						</a>
-			 		</p>
-				<?php endif; ?>
-
-				<h3>Sobre: </h3>
+				<br>
+ 				<h3>Anotações do especialista</h3>			
 				<?php while ( have_posts() ) : the_post(); ?>
-
+					
 					<div class="entry-content">
 						<?php the_content(); ?>
 						<?php
@@ -102,11 +83,6 @@ $campus = esc_attr( get_post_meta( get_the_ID(), 'campus', true));
 					endif;
 				 ?>
 
-				<?php 
-				if ($localizacao) {
-					echo '<iframe src="$localizacao"></iframe>';
-				}
-				?>
 			</main><!-- #main -->
 		</div><!-- #primary -->
 
