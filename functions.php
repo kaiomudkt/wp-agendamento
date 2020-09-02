@@ -21,12 +21,25 @@ $diretorio_filho = get_stylesheet_directory();
 /**/
 require_once($diretorio_filho . '/cpt_consulta.php');
 
-/*meta box para dados do agendamento*/
-require_once($diretorio_filho . '/meta_box_agendamento.php');
+/*meta box para dados do consulta*/
+require_once($diretorio_filho . '/meta_box_cpt_consulta.php');
 
 /* arquivo responsavel por inseir meta dados no usuario especialista*/
 require_once($diretorio_filho . '/cpt_calendario.php');
 
-/**/
+/*tela com funcionalidades do paciente*/
 require_once($diretorio_filho . '/dashboard_paciente.php');
+
+/*tela com funcionalidades do especialista*/
+require_once($diretorio_filho . '/dashboard_especialista.php');
+
+/*tela com funcionalidades do recepcionista*/
+require_once($diretorio_filho . '/dashboard_recepcionista.php');
+
+/* removendo funções padroes do wp*/
+require_once($diretorio_filho . '/remove_roles_default.php');
+
+/* adiciona função(nivel de acesso) paciente, especialista e recepcionista */
+require_once($diretorio_filho . '/add_roles_pac_esp_rec.php');
+
  ?>

@@ -39,7 +39,7 @@ add_action( 'add_meta_boxes', 'registrar_meta_boxes_consulta' );
  * @param WP_Post $post Current post object.
  */
 function consulta_display_callback( $post ) {
-    require_once("form_consulta.php");
+    require_once("cpt_consulta_form.php");
 }
 
 

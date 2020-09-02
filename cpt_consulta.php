@@ -69,6 +69,8 @@ function consulta_post_type() {
 		'menu_icon'				=> 'dashicons-clipboard',
 		'rewrite' => array('slug' => 'consulta'),
 		'query_var' => true,
+		'capability_type'     => array('consulta','consultas'),/*role custom*/
+        'map_meta_cap'        => true/*É importante observar que fazer isso remove a capacidade dos administradores ou editores de editar esse tipo de postagem personalizada até que especificamente concedamos a eles permissão.*/
 	);
 	
 	register_post_type( 'consulta', $args );//consulta é a chave identificadora do Custom Post Type consulta
@@ -89,4 +91,9 @@ function query_post_type($query) {
     return $query;
     }
 }
-?>
+
+
+/*
+https://3.7designs.co/blog/2014/08/restricting-access-to-custom-post-types-using-roles-in-wordpress/
+*/
+

@@ -1,31 +1,33 @@
 <?php 
 
-add_action('admin_menu', 'custom_menu_paciente');
-function custom_menu_paciente() { 
+add_action('admin_menu', 'custom_menu_especialista');
+function custom_menu_especialista() { 
 	add_menu_page( 
 		'opções do cliente', 
 		'Área do cliente', 
-		'nivel_de_acesso_paciente', 
+		'nivel_de_acesso_especialista', 
 		'menu_cliente', 
-		'page_callback_function_paciente', 
+		'page_callback_function_especialista', 
 		'dashicons-media-spreadsheet',
 		'1'
 	);
 }
 
-
-function page_callback_function_paciente(){
+function page_callback_function_especialista(){
 ?>
-	<h1>PACIENTE</h1>
+
+<div>
+	<h1>ESPECIALISTA</h1>
 	<h1>Lista de todas as consultas agendadas</h1>
 	<h1>Lista de todas as consultas realizadas</h1>
 	<h1>Lista de todas as áreas de atendimento </h1>
 	<h1>Lista de todos os especialista por área</h1>
 	<button>Marcar consulta</button>
-
 	<br>
-	<?php echo 'sobre a role: ' ; ?>
-	<br>
-	<?php var_dump(get_role('administrator')); ?>
-
+	<?php  
+	$user = wp_get_current_user();
+	$roles = ( array ) $user->roles; ; 
+	var_dump($roles);
+	?>
+</div>
 <?php } ?>

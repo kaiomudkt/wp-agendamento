@@ -1,22 +1,22 @@
 <?php 
 
-add_action('admin_menu', 'custom_menu_paciente');
-function custom_menu_paciente() { 
+add_action('admin_menu', 'custom_menu_recepcionista');
+function custom_menu_recepcionista() { 
 	add_menu_page( 
 		'opções do cliente', 
 		'Área do cliente', 
-		'nivel_de_acesso_paciente', 
+		'nivel_de_acesso_recepcionista', 
 		'menu_cliente', 
-		'page_callback_function_paciente', 
+		'page_callback_function_recepcionista', 
 		'dashicons-media-spreadsheet',
 		'1'
 	);
 }
 
 
-function page_callback_function_paciente(){
+function page_callback_function_recepcionista(){
 ?>
-	<h1>PACIENTE</h1>
+	<h1>RECEPCIONISTA</h1>
 	<h1>Lista de todas as consultas agendadas</h1>
 	<h1>Lista de todas as consultas realizadas</h1>
 	<h1>Lista de todas as áreas de atendimento </h1>
