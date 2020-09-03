@@ -29,19 +29,34 @@ function add_all_roles(){
 	add_gereneric_role('recepcionista', 'Recepcionista', $capacidades, 
 		'nivel_de_acesso_recepcionista');
 
-	$role = get_role('administrator');
-	$role->add_cap('nivel_de_acesso_paciente');
-	$role->add_cap('nivel_de_acesso_especialista');
-	$role->add_cap('nivel_de_acesso_recepcionista');
-	$role->add_cap('nivel_de_acesso_consulta');
+	$roles = get_role('administrator');
+
+	$roles->add_cap('nivel_de_acesso_paciente');
+	$roles->add_cap('nivel_de_acesso_especialista');
+	$roles->add_cap('nivel_de_acesso_recepcionista');
+	$roles->add_cap('nivel_de_acesso_consulta');
+	$roles->add_cap( 'edit_consulta' ); 
+    $roles->add_cap( 'edit_consultas' ); 
+    $roles->add_cap( 'edit_other_consultas' ); 
+    $roles->add_cap( 'publish_consultas' ); 
+    $roles->add_cap( 'read_consulta' ); 
+    $roles->add_cap( 'read_private_consultas' ); 
+    $roles->add_cap( 'delete_consulta' ); 
 }
 
 function add_gereneric_role($id, $nome, $argumentos, $nivel_de_acesso){
-	//$role = add_role($id,$nome,$argumentos);
+	//$roles = add_role($id,$nome,$argumentos);
 	add_role($id,$nome,$argumentos);
-	$role = get_role($id);
-	$role->add_cap($nivel_de_acesso);
-	$role->add_cap('nivel_de_acesso_consulta');
+	$roles = get_role($id);
 
+	$roles->add_cap($nivel_de_acesso);
+	$roles->add_cap('nivel_de_acesso_consulta');
+	$roles->add_cap( 'edit_consulta' ); 
+    $roles->add_cap( 'edit_consultas' ); 
+    $roles->add_cap( 'edit_other_consultas' ); 
+    $roles->add_cap( 'publish_consultas' ); 
+    $roles->add_cap( 'read_consulta' ); 
+    $roles->add_cap( 'read_private_consultas' ); 
+    $roles->add_cap( 'delete_consulta' ); 
 }
 ?>
