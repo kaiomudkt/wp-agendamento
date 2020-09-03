@@ -70,7 +70,7 @@ function consulta_post_type() {
 		'query_var'				=> true,
 		/*'capability_type'     => 'post',*//*nivel de acesso post como padrao*/
 		/*'capability_type'     => 'nivel_de_acesso_consulta',*//*role custom*/
-        'map_meta_cap'        	=> true,/*É importante observar que fazer isso remove a capacidade dos administradores ou editores de editar esse tipo de postagem personalizada até que especificamente concedamos a eles permissão.*/
+        /*'map_meta_cap'        	=> true,*//*É importante observar que fazer isso remove a capacidade dos administradores ou editores de editar esse tipo de postagem personalizada até que especificamente concedamos a eles permissão.*/
         'capabilities' 			=> array(
 							        'edit_post' => 'edit_consulta',
 							        'edit_posts' => 'edit_consultas',
@@ -79,7 +79,7 @@ function consulta_post_type() {
 							        'read_post' => 'read_consulta',
 							        'read_private_posts' => 'read_private_consultas',
 							        'delete_post' => 'delete_consulta'
-								),
+								),/*capacidades customizadas, que devem ser inseridas nas roles*/
 	);
 	
 	register_post_type( 'consulta', $args );//consulta é a chave identificadora do Custom Post Type consulta
