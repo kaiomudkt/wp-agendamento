@@ -9,7 +9,7 @@ function custom_menu_recepcionista() {
 		'menu_slug_recepcionista', 
 		'page_callback_function_recepcionista', 
 		'dashicons-media-spreadsheet',
-		'1'
+		'2'
 	);
 }
 

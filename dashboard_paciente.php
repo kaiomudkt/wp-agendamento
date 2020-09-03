@@ -9,7 +9,7 @@ function custom_menu_paciente() {
 		'menu_slug_paciente', 
 		'page_callback_function_paciente', 
 		'dashicons-media-spreadsheet',
-		'1'
+		'2'
 	);
 }
 

@@ -9,7 +9,7 @@ function custom_menu_especialista() {
 		'menu_slug_especialista', 
 		'page_callback_function_especialista', 
 		'dashicons-media-spreadsheet',
-		'1'
+		'2'
 	);
 }
 
