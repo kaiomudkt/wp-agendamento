@@ -31,6 +31,16 @@ function custom_login_css() {
 echo '<link rel="stylesheet" type="text/css" href="'.get_stylesheet_directory_uri().'/style.css"/>';
 }
 add_action('login_head', 'custom_login_css');
+
+		<br>
+		<br>
+		<div>
+			<?php  
+	$user = wp_get_current_user();
+	$roles = ( array ) $user->roles; ; 
+	var_dump($roles);
+	?>
+		</div>
 				</main><!-- #main -->
 			</div><!-- #primary -->
 
