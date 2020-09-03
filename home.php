@@ -35,11 +35,45 @@ add_action('login_head', 'custom_login_css');
 		<br>
 		<br>
 		<div>
+			<?php 
+	global $current_user;
+	echo 'global $current_user:';
+	var_dump($current_user->roles[0] );
+	?>
+	<br><br><br><br>
 			<?php  
 	$user = wp_get_current_user();
-	$roles = ( array ) $user->roles; ; 
-	var_dump($roles);
+	$roles = ( array ) $user->roles;
+	echo '$user = wp_get_current_user();
+	$roles = ( array ) $user->roles;'; 
+	var_dump('role:' , $roles);
+
 	?>
+	<br><br><br><br><br><br><br>
+	<?php  
+	$admin_role_set = get_role( 'administrator' )->capabilities;
+	var_dump($admin_role_set);
+	?>
+	<br><br><br><br><br><br>
+	<?php  
+	$admin_role_set = get_role( 'paciente' )->capabilities;
+	var_dump($admin_role_set);
+	?>
+	<br><br><br><br><br><br><br>
+	<br>
+	<?php  
+	$admin_role_set = get_role( 'especialista' )->capabilities;
+	var_dump($admin_role_set);
+	?>
+	<br><br><br><br><br><br><br>
+	<br>
+	<?php  
+	$admin_role_set = get_role( 'recepcionista' )->capabilities;
+	var_dump($admin_role_set);
+	?>
+	<br><br><br><br><br><br><br>
+
+
 		</div>
 				</main><!-- #main -->
 			</div><!-- #primary -->

@@ -3,10 +3,10 @@
 add_action('admin_menu', 'custom_menu_paciente');
 function custom_menu_paciente() { 
 	add_menu_page( 
-		'opções do cliente', 
-		'Área do cliente', 
+		'opções do paciente', 
+		'Área do paciente', 
 		'nivel_de_acesso_paciente', 
-		'menu_cliente', 
+		'menu_slug_paciente', 
 		'page_callback_function_paciente', 
 		'dashicons-media-spreadsheet',
 		'1'

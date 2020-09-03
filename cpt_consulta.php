@@ -65,18 +65,19 @@ function consulta_post_type() {
 		'has_archive'           => true,
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
-		'capability_type'       => 'post',
 		'menu_icon'				=> 'dashicons-clipboard',
-		'rewrite' => array('slug' => 'consulta'),
-		'query_var' => true,
-		'capability_type'     => array('consulta','consultas'),/*role custom*/
+		'rewrite' 				=> array('slug' => 'consulta'),
+		'query_var'				=> true,
+		/*'capability_type'     => 'post',*//*nivel de acesso post como padrao*/
+		'capability_type'     => 'especialista',/*role custom*/
         'map_meta_cap'        => true/*É importante observar que fazer isso remove a capacidade dos administradores ou editores de editar esse tipo de postagem personalizada até que especificamente concedamos a eles permissão.*/
 	);
 	
 	register_post_type( 'consulta', $args );//consulta é a chave identificadora do Custom Post Type consulta
 
 }
-add_action( 'init', 'consulta_post_type');
+//add_action( 'init', 'consulta_post_type');
+add_action( 'after_setup_theme', 'consulta_post_type');
 
 //esse metodo permite que o CPT-consulta seja listado por categoria
 add_filter('pre_get_posts', 'query_post_type');

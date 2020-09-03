@@ -3,10 +3,10 @@
 add_action('admin_menu', 'custom_menu_recepcionista');
 function custom_menu_recepcionista() { 
 	add_menu_page( 
-		'opções do cliente', 
-		'Área do cliente', 
+		'opções do recepcionista', 
+		'Área do recepcionista', 
 		'nivel_de_acesso_recepcionista', 
-		'menu_cliente', 
+		'menu_slug_recepcionista', 
 		'page_callback_function_recepcionista', 
 		'dashicons-media-spreadsheet',
 		'1'
