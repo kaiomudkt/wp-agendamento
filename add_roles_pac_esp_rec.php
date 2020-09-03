@@ -12,10 +12,19 @@ https://developer.wordpress.org/reference/functions/add_role/
 
 add_action('init','add_all_roles');
 function add_all_roles(){
-
-	add_gereneric_role('paciente', 'Paciente', array('nivel_de_acesso_paciente' => true), 'nivel_de_acesso_paciente');
-	add_gereneric_role('especialista', 'Especialista', array('nivel_de_acesso_especialista' => true), 'nivel_de_acesso_especialista');
-	add_gereneric_role('recepcionista', 'Recepcionista', array('nivel_de_acesso_recepcionista' => true), 'nivel_de_acesso_recepcionista');
+	$capacidades = array(
+		'read' => false,
+		'edit_posts' => false,
+		'delete_posts' => false,
+		'publish_posts' => false,
+		'upload_files' => true,
+	);
+	add_gereneric_role('paciente', 'Paciente', $capacidades, 
+		'nivel_de_acesso_paciente');
+	add_gereneric_role('especialista', 'Especialista', $capacidades, 
+		'nivel_de_acesso_especialista');
+	add_gereneric_role('recepcionista', 'Recepcionista', $capacidades, 
+		'nivel_de_acesso_recepcionista');
 }
 
 function add_gereneric_role($id, $label, $array, $acesso){
