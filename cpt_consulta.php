@@ -81,8 +81,9 @@ function consulta_post_type() {
 							        'delete_post' => 'delete_consulta'
 								),/*capacidades customizadas, que devem ser inseridas nas roles*/
 	);
-	
-	register_post_type( 'consulta', $args );//consulta é a chave identificadora do Custom Post Type consulta
+	//if(!post_type_exists('consulta')){
+		register_post_type( 'consulta', $args );//consulta é a chave identificadora do Custom Post Type consulta
+    //}
 
 }
 //add_action( 'init', 'consulta_post_type');
@@ -102,6 +103,34 @@ function query_post_type($query) {
     }
 }
 
+add_action( 'init', 'create_category_specialist', 0 );
+function create_category_specialist(){
+	$labels = array(
+        'name'              => _x( 'Genres', 'taxonomy general name', 'textdomain' ),
+        'singular_name'     => _x( 'Genre', 'taxonomy singular name', 'textdomain' ),
+        'search_items'      => __( 'Search Genres', 'textdomain' ),
+        'all_items'         => __( 'All Genres', 'textdomain' ),
+        'parent_item'       => __( 'Parent Genre', 'textdomain' ),
+        'parent_item_colon' => __( 'Parent Genre:', 'textdomain' ),
+        'edit_item'         => __( 'Edit Genre', 'textdomain' ),
+        'update_item'       => __( 'Update Genre', 'textdomain' ),
+        'add_new_item'      => __( 'Add New Genre', 'textdomain' ),
+        'new_item_name'     => __( 'New Genre Name', 'textdomain' ),
+        'menu_name'         => __( 'Genre', 'textdomain' ),
+    );
+ 
+    $args = array(
+        'hierarchical'      => true,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array( 'slug' => 'genre' ),
+    );
+
+	register_taxonomy( 'especialista', 'Especialista', $args );
+
+}
 
 /*
 https://3.7designs.co/blog/2014/08/restricting-access-to-custom-post-types-using-roles-in-wordpress/
