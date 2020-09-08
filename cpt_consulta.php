@@ -48,7 +48,7 @@ function consulta_post_type() {
 		'label'                 =>  array( 'name' => __( 'consulta' ),'singular_name' => __( 'consulta' )),
 		'description'           => __( 'Tipo consulta, destinado categorizar consulta.', 'text_domain' ),
 		'labels'                => $labels,
-		'supports'              => array(/* 'custom-fields', */'editor', /*'title',*/ 'comments' , 'excerpt'),
+		'supports'              => array(/* 'custom-fields', */'editor', 'title', 'comments' , 'excerpt'),
 		'taxonomies'            => array('category'),
 		'hierarchical'          => false,
 		'public'                => true,

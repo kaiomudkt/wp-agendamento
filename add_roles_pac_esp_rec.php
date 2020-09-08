@@ -19,12 +19,12 @@ function add_all_roles(){
 		'delete_posts' => false,
 		'publish_posts' => false,
 		'upload_files' => true,
-		'manage_categories' => true,
+		/*'manage_categories' => true,*/
 		/*'custom_cap' => true,*/
 		/*'manage_capabilities' => true,*/
 	);
 	//add permissao de comentario
-	$lista_acessos_adm = array('edit_consulta', 'edit_consultas', 'edit_other_consultas', 'publish_consultas', 'read_consulta', 'read_private_consultas', 'delete_consulta');
+	$lista_acessos_adm = array('edit_consulta', 'edit_consultas', 'edit_other_consultas', 'publish_consultas', 'read_consulta', 'read_private_consultas', 'delete_consulta', 'nivel_de_acesso_paciente', 'nivel_de_acesso_especialista', 'nivel_de_acesso_recepcionista');
 	$lista_acessos_paciente = array('publish_consultas', 'read_consulta');
 	$lista_acessos_especialista = array('edit_consulta', 'read_consulta', 'read_private_consultas');
 	$lista_acessos_recepcionista = array('publish_consultas', 'read_consulta');
@@ -38,9 +38,9 @@ function add_all_roles(){
 
 	$roles_adm = get_role('administrator');
 	//add permissao a acessos as telas de paciente, especialista e recepcionista
-	$roles_adm->add_cap('nivel_de_acesso_paciente');
-	$roles_adm->add_cap('nivel_de_acesso_especialista');
-	$roles_adm->add_cap('nivel_de_acesso_recepcionista');
+	// $roles_adm->add_cap('nivel_de_acesso_paciente');
+	// $roles_adm->add_cap('nivel_de_acesso_especialista');
+	// $roles_adm->add_cap('nivel_de_acesso_recepcionista');
 	//$roles_adm->add_cap('nivel_de_acesso_consulta');
 
 	//add acessos customizados do cpt-consulta ao adm

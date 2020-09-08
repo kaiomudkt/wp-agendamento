@@ -15,17 +15,12 @@ function custom_menu_paciente() {
 
 
 function page_callback_function_paciente(){
-?>
-	<h1>PACIENTE</h1>
-	<h1>Lista de todas as consultas agendadas</h1>
-	<h1>Lista de todas as consultas realizadas</h1>
-	<h1>Lista de todas as áreas de atendimento </h1>
-	<h1>Lista de todos os especialista por área</h1>
-	<button>Marcar consulta</button>
 
-	<br>
-	<?php echo 'sobre a role: ' ; ?>
-	<br>
-	<?php var_dump(get_role('administrator')); ?>
-
-<?php } ?>
+	/*se tiver consulta selecionada deste paciente mostrar o form, somente para apresentar os dados para o paciente*/
+	require_once("form_consulta.php");
+	?>
+	<form method="POST">
+		<input class="subput round" type="submit" name="submit" value="Solicitar agendamento de consulta"/>
+	</form>
+	<?php
+}

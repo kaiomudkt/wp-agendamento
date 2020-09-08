@@ -8,17 +8,30 @@
 */
  ?>
 <div class="hcf_box">
-    <style scoped>
-        .hcf_box{
-            display: grid;
-            grid-template-columns: max-content 1fr;
-            grid-row-gap: 10px;
-            grid-column-gap: 20px;
-        }
-        .campos{
-            display: contents;
-        }
-    </style>
+    
+    <div class="meta-options campos">
+        <label for="especialista">Especialista</label>
+        <input id="especialista" readonly="true"
+            type="text"
+            name="especialista"
+            <?php $especialista = esc_attr(get_post_meta($dados_cpt_consulta->ID,'especialista', true ) ); ?>
+        <?php if ($especialista):  ?>
+            value="<?php echo $especialista; ?>"
+        <?php else: ?>
+            value="<?php echo esc_attr('paciente escolhe especialista'); ?>"
+        <?php endif; ?>
+        >
+    </div>
+            <?php //echo $dados_cpt_consulta->ID; ?>
+
+    <div class="meta-options campos">
+        <label for="paciente">Paciente</label>
+        <input id="paciente" readonly="true"
+        type="text"
+        name="paciente"
+        <?php $paciente =  esc_attr(get_post_meta( $dados_cpt_consulta->ID, 'paciente', true ) ); ?>
+        value="<?php echo $paciente; ?>">
+    </div>
 
     <div class="meta-options campos">
         <label for="lista_de_remedios">Lista de remedios</label>
@@ -27,36 +40,28 @@
         name="lista_de_remedios"
         value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'lista_de_remedios', true ) ); ?>">
     </div>
-    <div class="meta-options campos">
-        <label for="especialista">Especialista</label>
-        <input id="especialista" disabled
-        type="text"
-        name="especialista"
-        value="<?php echo 'especialista 1'; ?>">
-    </div>
 
     <div class="meta-options campos">
-        <label for="paciente">paciente</label>
-        <input id="paciente" disabled
-        type="text"
-        name="paciente"
-        value="<?php echo 'paciente 88'; ?>">
-    </div>
-
-    <div class="meta-options campos">
-        <label for="motivo_da_consulta">motivo_da_consulta</label>
+        <label for="motivo_da_consulta">Motivo da consulta</label>
         <input id="motivo_da_consulta"
         type="text"
         name="motivo_da_consulta"
-        value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'motivo_da_consulta', true ) ); ?>">
+        value="<?php echo esc_attr( get_post_meta( $dados_cpt_consulta->ID, 'motivo_da_consulta', true ) ); ?>">
     </div>
 
     <div class="meta-options campos">
-        <label for="marcar_volta">marcar_volta</label>
+        <label for="marcar_volta">Marcar volta</label>
         <input id="especialista"
         type="text"
         name="marcar_volta"
-        value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'marcar_volta', true ) ); ?>">
+        value="<?php echo esc_attr( get_post_meta( $dados_cpt_consulta->ID, 'marcar_volta', true ) ); ?>">
+    </div>
+
+    <div>
+        <input readonly="true"
+        type="hidden"
+        name="consulta_realizada"
+        value="false">
     </div>
 
 </div>

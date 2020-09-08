@@ -16,3 +16,16 @@ This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 */
 
+.hcf_box{
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 20px;
+}
+.campos{
+    display: contents;
+}
+
+.consulta{
+	background: #ddd;
+}
