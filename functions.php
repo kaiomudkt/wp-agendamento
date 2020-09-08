@@ -44,7 +44,6 @@ require_once($diretorio_filho . '/cpt_calendario.php');
 /*tela com funcionalidades do paciente*/
 require_once($diretorio_filho . '/dashboard_paciente.php');
 
-
 /*tela com funcionalidades do especialista*/
 require_once($diretorio_filho . '/dashboard_especialista.php');
 

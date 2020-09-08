@@ -29,7 +29,8 @@
         <input id="paciente" readonly="true"
         type="text"
         name="paciente"
-        value="<?php echo esc_attr(get_post_meta( $dados_cpt_consulta->ID, 'paciente', true ) ); ?>">
+        <?php $paciente =  esc_attr(get_post_meta( $dados_cpt_consulta->ID, 'paciente', true ) ); ?>
+        value="<?php echo $paciente; ?>">
     </div>
 
     <div class="meta-options campos">
