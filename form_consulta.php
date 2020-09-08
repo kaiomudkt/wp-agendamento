@@ -58,7 +58,7 @@
 			            <?php
 			        if ($dados_cpt_consulta) :
 		        		//echo 'readonly="true"';
-			        	$especialista =  esc_attr(get_post_meta( $dados_cpt_consulta->ID, 'especialista', true ) ); 
+			        	$especialista =  esc_attr(get_post_meta( $dados_cpt_consulta->ID, 'especialista_id', true ) ); 
 				        if ($especialista) :
 				        	echo 'value="'.$especialista.'"';
 				        else:
@@ -82,7 +82,7 @@
 			        <?php
 			        if ($dados_cpt_consulta) :
 		        		//echo 'readonly="true"';
-			        	$paciente =  esc_attr(get_post_meta( $dados_cpt_consulta->ID, 'paciente', true ) ); 
+			        	$paciente =  esc_attr(get_post_meta( $dados_cpt_consulta->ID, 'paciente_id', true ) ); 
 				        if ($paciente) :
 				        	echo 'value="'.$paciente.'"';
 				        else:
@@ -221,9 +221,9 @@
 	/*recebe dados do formulario*/
 	if(isset($_POST['submit'])) {
 
-	    $post_title   = 'P: '.$_POST['paciente_id'].' - E'.$_POST['especialista_id'];
+	    $post_title   = 'P: '.$_POST['paciente_id'].' - E'.$_POST['especialista_id'].' '.$_POST['data_hora'] ;
 	    $post_content = $_POST['relatorio'];//post_content do post
-	    $$recepcionista_id = $_POST['$recepcionista_id'];
+	    $recepcionista_id = $_POST['recepcionista_id'];
 	    if ($_POST['consulta_id']) {//id a ser atualizado, se houver
 	    	$atualiza_consulta_id = $_POST['consulta_id'];
 	    }else{
