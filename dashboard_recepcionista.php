@@ -26,8 +26,11 @@ function page_callback_function_recepcionista(){
 						//echo get_current_user_id();
 						$consultas_agendadas = list_all_consulta(get_current_user_id());
 						foreach ($consultas_agendadas as $consulta) {
-							$paciente = esc_attr( get_post_meta( $consulta->ID, 'paciente', true));
-						 	echo '<li>Consulta Nº: '.$consulta->ID.' | Paciente:'.$paciente.' | Data: dd/mm/yyyy hh:mm <button>Preencher</button></li>';
+							//4var_dump($consulta);
+							$data_hora =  esc_attr(get_post_meta( $dados_cpt_consulta->ID, 'data_hora', true ) ); 
+							$paciente = esc_attr( get_post_meta( $consulta->ID, 'paciente_id', true));
+							$especialista = esc_attr( get_post_meta( $consulta->ID, 'especialista_id', true));
+						 	echo '<li>Consulta Nº: '.$consulta->ID.' | Paciente:'.$paciente.' | Especialista: '.$especialista.'| Data da consulta: '.$data_hora.' <button>Preencher</button></li>';
 						}
 					    ?>
 					</ul>

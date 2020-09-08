@@ -5,8 +5,8 @@
 			<h2>Nivel de acesso: <?php echo role_logada(); ?></h2>
 
 			<div class="hcf_box">
-			<?php //$cpt_consulta_id = 35; ?>
-			<?php $cpt_consulta_id = -1; ?>
+			<?php $cpt_consulta_id = 56; ?>
+			<?php //$cpt_consulta_id = -1; ?>
 			<?php $dados_cpt_consulta = get_post($cpt_consulta_id); ?>
 			<?php //var_dump($dados_cpt_consulta); ?>
 			
@@ -18,16 +18,34 @@
 
 				<div>
 					<label>Data e hora da consulta</label>
-					<input type="datetime-local" name="data_hora">
+					<input type="datetime-local" name="data_hora"
+					<?php 
+						if ($dados_cpt_consulta) {
+							$data_hora =  esc_attr(get_post_meta( $dados_cpt_consulta->ID, 'data_hora', true ) ); 
+							if ($data_hora) {
+								echo 'value="'.$data_hora.'"';
+							}
+						}
+					 ?>
+					 <?php 
+			        if (role_logada() != 'recepcionista') {
+		        		echo 'readonly';
+	        		} ?>
+					><!-- fim input-->
 				</div>
 
 				<div class="meta-options campos">
 			        <label for="relatorio">Relatório do atendimento</label>
-			        <textarea type="text" name="relatorio">
+			        <textarea type="text" name="relatorio"
+			        <?php 
+			        if (role_logada() != 'especialista') {
+		        		echo 'readonly';
+	        		} ?>
+	        		>
 			        	<?php if ($dados_cpt_consulta && $dados_cpt_consulta->post_content): ?>
 			        		<?php echo esc_attr( $dados_cpt_consulta->post_content ); ?>
 			        	<?php else: ?>
-			        		insira relatorio...
+			        		insira relatorio....
 			        	<?php endif; ?>
 			    	</textarea>
 			    </div>
@@ -36,20 +54,20 @@
 			        <label for="especialista">Especialista (ID)</label>
 			        <input id="especialista" 
 			            type="text"
-			            name="especialista"
+			            name="especialista_id"
 			            <?php
 			        if ($dados_cpt_consulta) :
 		        		//echo 'readonly="true"';
 			        	$especialista =  esc_attr(get_post_meta( $dados_cpt_consulta->ID, 'especialista', true ) ); 
 				        if ($especialista) :
-				        	echo 'value="$especialista"';
+				        	echo 'value="'.$especialista.'"';
 				        else:
 			        		echo 'value="consulta sem especialista"';
 			        	endif;
 		        	else:
 		        		echo 'value="id especialista"';
 			        endif;
-		        	if (!role_logada() == 'recepcionista' || !role_logada() == 'administrator') {
+		        	if (role_logada() != 'recepcionista') {
 		        		echo 'readonly';
 	        		}
 			        ?>
@@ -60,20 +78,20 @@
 			        <label for="paciente">Paciente (ID)</label>
 			        <input id="paciente"
 			        type="text"
-			        name="paciente"
+			        name="paciente_id"
 			        <?php
 			        if ($dados_cpt_consulta) :
 		        		//echo 'readonly="true"';
 			        	$paciente =  esc_attr(get_post_meta( $dados_cpt_consulta->ID, 'paciente', true ) ); 
 				        if ($paciente) :
-				        	echo 'value="$paciente"';
+				        	echo 'value="'.$paciente.'"';
 				        else:
 			        		echo 'value="consulta sem paciente"';
 			        	endif;
 		        	else:
 		        		echo 'value="id paciente"';
 			        endif;
-			        if (!role_logada() == 'recepcionista' || !role_logada() == 'administrator') {
+			        if (role_logada() != 'recepcionista') {
 		        		echo 'readonly';
 	        		}
 			        ?>
@@ -112,6 +130,9 @@
 		        	<?php else: ?>
 		        		value="Motivo da consulta"
 			        <?php endif; ?>
+			        <?php if (role_logada() != 'recepcionista') {
+			         	echo 'readonly="true"';
+			        }?>
 			         ><!-- fim input-->
 			    </div>
 
@@ -128,6 +149,9 @@
 		        	<?php else: ?>
 		        			value="dd/mm/yyyy hh:mm"
 			        <?php endif ?>
+			        <?php if (role_logada() != 'recepcionista') {
+			         	echo 'readonly="true"';
+			        }?>
 			        ><!-- fim input-->
 			    </div>
 
@@ -135,14 +159,19 @@
 					essa campo vai ajudar a listar consultar a ser realizada
 			     -->
 		        <div>
-		        	<input  readonly="true"
-			        type="hidden"
+		        	<label for="marcar_volta">consulta já foi realizada?</label>
+		        	<input 
+			        type="checkbox"
 			        name="consulta_realizada"
+		        
 			    <?php if ($dados_cpt_consulta): ?>
 			        value="true"
 		        <?php else: ?>
 			        value="false"
 			    <?php endif; ?>
+			    <?php if (!role_logada() != 'especialista') {
+	        		echo 'readonly="true"';
+        		} ?>
 			        ><!-- fim input-->
 		        </div>
 
@@ -154,17 +183,53 @@
 					comentarios
 				</div>
 
-				<input class="subput round" type="submit" name="submit" value="Agendar consulta"/>
+				
+
+				<?php if ($dados_cpt_consulta): ?>
+					<?php if ($dados_cpt_consulta->ID): ?>
+						<input type="hidden" name="consulta_id" 
+						<?php echo 'value="'.esc_attr($dados_cpt_consulta->ID).'"'; ?>
+						><!-- fim input -->
+					<?php endif; ?>
+				<?php endif; ?>
+
+				<div>
+					<label>Recepcionista</label>
+					<input type="text" name="recepcionista_id" readonly
+					<?php if ($dados_cpt_consulta): ?>
+						<?php if ($dados_cpt_consulta->post_author): ?>
+							<?php echo 'value="'.$dados_cpt_consulta->post_author.'"'; ?>
+							<?php echo 'tem autor'; ?>
+						<?php endif; ?>
+					<?php else: ?>
+						<?php echo 'value="'.id_usuario_logado().'"'; ?>
+							<?php echo 'NAO tem autor'; ?>
+					<?php endif; ?>
+					
+					><!--fim input-->
+				</div>
+				
+				<?php if (role_logada() != 'paciente'): ?>
+					<input class="subput round" type="submit" name="submit" value="Salvar consulta"/>
+				<?php endif ?>
 			</div>
 		</form>
 	</div>
 
 	<?php 
+	/*https://stackoverflow.com/questions/4321914/wp-insert-post-with-a-form*/
 	/*recebe dados do formulario*/
 	if(isset($_POST['submit'])) {
 
-	    $post_title   = $_POST['paciente'].' - '.$_POST['especialista'];
+	    $post_title   = 'P: '.$_POST['paciente_id'].' - E'.$_POST['especialista_id'];
 	    $post_content = $_POST['relatorio'];//post_content do post
+	    $$recepcionista_id = $_POST['$recepcionista_id'];
+	    if ($_POST['consulta_id']) {//id a ser atualizado, se houver
+	    	$atualiza_consulta_id = $_POST['consulta_id'];
+	    }else{
+	    	$atualiza_consulta_id = 0;
+	    }
+
 
 	    //meta dados
 	    $data_hora      = $_POST['data_hora'];
@@ -182,7 +247,10 @@
 	          'post_type' => 'consulta', 
 	          'post_content' => $post_content, 
 	          'post_title' => $post_title,
-	          'post_status' => 'publish'
+	          'post_status' => 'publish',
+	          'ID' => $atualiza_consulta_id,
+	          'post_author' => $recepcionista_id,
+	          /*'comment_status' => ,*/
 	        );
 
 	    $consulta_id = wp_insert_post($insert_consulta);
