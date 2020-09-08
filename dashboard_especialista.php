@@ -14,8 +14,16 @@ function custom_menu_especialista() {
 }
 
 function page_callback_function_especialista(){
+
 	require_once("lista_agendamentos_consultas.php"); 
+	?>
+	<div>
+		<h3>Lista de horários disponíveis para atender</h3>
+	</div>
+	<?php
 	require_once("form_consulta.php");
+
+	
 }
 
 function fill_form($cpt_consulta_id){

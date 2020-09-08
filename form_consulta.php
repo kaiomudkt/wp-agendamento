@@ -8,8 +8,6 @@
 				<?php 
 				if (isset($_POST['editar_form'])) {
 					if (isset($_POST['consulta_id'])) {
-						echo 'existe isso _POST[consulta_id] ';
-						var_dump($_POST['consulta_id']);
 						$cpt_consulta_id = $_POST['consulta_id'];
 						$dados_cpt_consulta = get_post($cpt_consulta_id); 
 					}
