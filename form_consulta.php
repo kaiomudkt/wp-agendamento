@@ -1,16 +1,21 @@
 	<!-- formulario do cpt_consulta para todos os usuarios -->
 	<div>
 		<form method="POST">
-			<h1>Seja bem vindo <?php echo nome_usuario_logado(); ?> | Identificador(ID): <?php echo id_usuario_logado(); ?></h1>
-			<h2>Nivel de acesso: <?php echo role_logada(); ?></h2>
-
 			<div class="hcf_box">
-				<?php $cpt_consulta_id = 61; ?>
-				<?php //$cpt_consulta_id = 0; ?>
-				<?php $dados_cpt_consulta = get_post($cpt_consulta_id); ?>
-				<?php //var_dump($dados_cpt_consulta); ?>
-			
-				<?php if ($dados_cpt_consulta && $dados_cpt_consulta->ID): ?>
+				<?php //$cpt_consulta_id = 64; ?>
+				<?php $cpt_consulta_id = 0; ?>
+				<?php $dados_cpt_consulta = null; ?>
+				<?php 
+				if (isset($_POST['editar_form'])) {
+					if (isset($_POST['consulta_id'])) {
+						echo 'existe isso _POST[consulta_id] ';
+						var_dump($_POST['consulta_id']);
+						$cpt_consulta_id = $_POST['consulta_id'];
+						$dados_cpt_consulta = get_post($cpt_consulta_id); 
+					}
+				}
+				?>
+				<?php if (isset($dados_cpt_consulta) && isset($dados_cpt_consulta->ID)): ?>
 					<h1>Consulta nº: <?php echo esc_attr($dados_cpt_consulta->ID); ?></h1>
 				<?php else: ?>			
 					<h1>Agendar nova Consulta</h1>
@@ -27,7 +32,7 @@
 				        	echo 'value="'.$paciente.'"';
 			        	endif;
 			        endif;
-			        if (!role_logada() == 'recepcionista' && !role_logada() == 'administrador') {
+			        if(!(role_logada() == 'recepcionista') && !(role_logada() == 'administrator'))  {
 		        		echo 'readonly';
 	        		}
 			        ?>
@@ -45,7 +50,7 @@
 				        	echo 'value="'.$especialista.'"';
 			        	endif;
 			        endif;
-		        	if (!role_logada() == 'recepcionista' && !role_logada() == 'administrador') {
+		        	if(!(role_logada() == 'recepcionista') && !(role_logada() == 'administrator'))  {
 		        		echo 'readonly';
 	        		}
 			        ?>
@@ -53,7 +58,7 @@
 			    </div>
 
 			    <div>
-					<label>Recepcionista</label>
+					<label>Recepcionista (ID)</label>
 					<input type="number" name="recepcionista_id" readonly required
 					<?php if ($dados_cpt_consulta): ?>
 						<?php if ($dados_cpt_consulta->post_author): ?>
@@ -77,8 +82,7 @@
 							}
 						}
 					 ?>
-					 <?php 
-			        if(!role_logada() == 'recepcionista' && !role_logada() == 'administrador') {
+					 <?php if(!(role_logada() == 'recepcionista') && !(role_logada() == 'administrator'))  {
 		        		echo 'readonly';
 	        		} ?>
 					><!-- fim input-->
@@ -93,6 +97,9 @@
      				  			value="<?php echo $hora_inicio; ?>"
      				  		<?php endif ?>
  				  		<?php endif; ?>
+ 				  		<?php if(!(role_logada() == 'recepcionista') && !(role_logada() == 'administrator'))  {
+		        		echo 'readonly';
+	        		} ?>
      				  ><!-- fi input-->
 				</div>
 
@@ -105,6 +112,9 @@
      				  			value="<?php echo $hora_termino; ?>"
      				  		<?php endif ?>
  				  		<?php endif; ?>
+ 				  		<?php if(!(role_logada() == 'recepcionista') && !(role_logada() == 'administrator'))  {
+		        		echo 'readonly';
+	        		} ?>
      				  ><!-- fi input-->
 				</div>
 
@@ -112,7 +122,7 @@
 			        <label for="relatorio">Relatório do atendimento</label>
 			        <textarea type="text" name="relatorio" 
 			        <?php 
-			        if (!role_logada() == 'especialista' && !role_logada() == 'administrador') {
+			        if(!(role_logada() == 'especialista') && !(role_logada() == 'administrator'))  {
 		        		echo 'readonly';
 	        		} ?>
 	        		>
@@ -133,7 +143,7 @@
 				        	value="<?php echo $lista_de_remedios; ?>"
 			        	<?php endif; ?>
 		            <?php endif; ?>
-			        <?php if (!role_logada() == 'especialista' && !role_logada() == 'administrador') {
+			        <?php if(!(role_logada() == 'especialista') && !(role_logada() == 'administrator'))  {
 			         	echo 'readonly="true"';
 			        }?>
 			        ><!-- fim input-->
@@ -150,7 +160,7 @@
 					        value="<?php echo $motivo; ?>"
 			        	<?php endif; ?>
 			        <?php endif; ?>
-			        <?php if (!role_logada() == 'recepcionista' && !role_logada() == 'administrador') {
+			        <?php if(!(role_logada() == 'recepcionista') && !(role_logada() == 'administrator'))  {
 			         	echo 'readonly="true"';
 			        }?>
 			         ><!-- fim input-->
@@ -167,7 +177,7 @@
 			        			value="<?php echo $voltar; ?>"
 			        		<?php endif ?>
 			        <?php endif ?>
-			        <?php if (!role_logada() == 'recepcionista' && !role_logada() == 'administrador') {
+			        <?php if(!(role_logada() == 'recepcionista') && !(role_logada() == 'administrator'))  {
 			         	echo 'readonly="true"';
 			        }?>
 			        ><!-- fim input-->
@@ -179,29 +189,33 @@
 			     -->
 		        <div>
 		        	<label for="consulta_realizada">consulta já foi realizada?</label>
-		        	<input type="checkbox" name="consulta_realizada"
+		        	<input type="text" name="consulta_realizada"
 				    <?php if ($dados_cpt_consulta): ?>
 				    	<?php $consulta_realizada = esc_attr( get_post_meta( $dados_cpt_consulta->ID, 'consulta_realizada', true ) ); ?>
 				    		<?php if (isset($consulta_realizada)): ?>
 				    			value="<?php echo $consulta_realizada; ?>"
 				    		<?php endif; ?>
+		    		<?php else: ?>
+		    			value="false"
 				    <?php endif; ?>
-				    <?php if (!role_logada() == 'especialista' && !role_logada() == 'administrador') {
-		        		echo 'readonly="true"';
+				   <?php if(!(role_logada() == 'especialista') && !(role_logada() == 'administrator'))  {
+		        		echo 'readonly';
 	        		} ?>
-				        ><!-- fim input-->
+			        ><!-- fim input-->
 		        </div>
 
 		        <div>
 		        	<label for="cancelar">Cancelar agendamento de consulta?</label>
-		        	<input type="checkbox" name="cancelar"
+		        	<input type="text" name="cancelar"
 				    <?php if ($dados_cpt_consulta): ?>
 				        <?php $cancelar = esc_attr( get_post_meta( $dados_cpt_consulta->ID, 'cancelar', true ) ); ?>
 				    		<?php if (isset($cancelar)): ?>
 				    			value="<?php echo $cancelar; ?>"
 				    		<?php endif; ?>
+		    		<?php else: ?>
+		    			value="false"
 				    <?php endif; ?>
-				    <?php if (!role_logada() == 'especialista' && !role_logada() == 'administrador') {
+				    <?php if(!(role_logada() == 'especialista') && !(role_logada() == 'administrator'))  {
 		        		echo 'readonly="true"';
 	        		} ?>
 				        ><!-- fim input-->
@@ -217,7 +231,7 @@
 
 				
 
-				<?php if ($dados_cpt_consulta): ?>
+				<?php if (isset($dados_cpt_consulta)): ?>
 					<?php if ($dados_cpt_consulta->ID): ?>
 						<input type="hidden" name="consulta_id" required
 						<?php echo 'value="'.esc_attr($dados_cpt_consulta->ID).'"'; ?>
@@ -225,7 +239,7 @@
 					<?php endif; ?>
 				<?php endif; ?>
 				
-				<?php if (role_logada() != 'paciente'): ?>
+				<?php if(role_logada() != 'paciente') : ?>
 					<input class="subput round" type="submit" name="botao_form" value="Salvar consulta"/>
 				<?php endif ?>
 			</div>
@@ -310,24 +324,5 @@
 	    //$res2= set_post_thumbnail( $consulta_id, $attach_id );
 	}      
 
-	/* 
-		retorna a role do usuario logado: administrator, especialista, paciente, recepcionista 
-	*/
-	function role_logada(){
-		$user = wp_get_current_user();
-		$roles = ( array ) $user->roles;
-		return $roles[0];
-	}
-
-	function nome_usuario_logado(){
-		$user = wp_get_current_user();
-		$name = ( array ) $user->display_name;
-		return implode(' ', $name);//converte array para string
-	}
-
-	function id_usuario_logado(){
-		$user = wp_get_current_user();
-		$user_id = ( array ) $user->ID;
-		return implode(' ', $user_id);//converte array para string
-	}
+	
 ?>      

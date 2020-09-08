@@ -15,12 +15,6 @@ function custom_menu_paciente() {
 
 
 function page_callback_function_paciente(){
-
-	/*se tiver consulta selecionada deste paciente mostrar o form, somente para apresentar os dados para o paciente*/
+	require_once("lista_agendamentos_consultas.php"); 
 	require_once("form_consulta.php");
-	?>
-	<form method="POST">
-		<input class="subput round" type="submit" name="submit" value="Solicitar agendamento de consulta"/>
-	</form>
-	<?php
 }

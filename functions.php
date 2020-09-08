@@ -58,3 +58,27 @@ require_once($diretorio_filho . '/add_roles_pac_esp_rec.php');
 
 /* API GET event */
 require_once($diretorio_filho . '/endpoint/get_event.php');
+
+
+
+
+/* 
+    retorna a role do usuario logado: administrator, especialista, paciente, recepcionista 
+*/
+function role_logada(){
+    $user = wp_get_current_user();
+    $roles = ( array ) $user->roles;
+    return $roles[0];
+}
+
+function nome_usuario_logado(){
+    $user = wp_get_current_user();
+    $name = ( array ) $user->display_name;
+    return implode(' ', $name);//converte array para string
+}
+
+function id_usuario_logado(){
+    $user = wp_get_current_user();
+    $user_id = ( array ) $user->ID;
+    return implode(' ', $user_id);//converte array para string
+}
