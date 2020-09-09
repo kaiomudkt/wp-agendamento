@@ -14,7 +14,7 @@ function custom_menu_recepcionista() {
 }
 
 function page_callback_function_recepcionista(){
-	require_once("lista_agendamentos_consultas.php"); 
-	require_once("form_consulta.php");
+	require_once("dashboard_list_agendamentos_consultas.php"); 
+	require_once("dashboard_form_consulta.php");
 } /* fim page_callback_function_recepcionista() */
 ?>

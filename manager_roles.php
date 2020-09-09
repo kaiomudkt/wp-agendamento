@@ -75,4 +75,10 @@ function add_gereneric_role($id, $nome, $argumentos, $nivel_de_acesso_tela, $niv
  //    $roles->add_cap( 'read_private_consultas' ); 
  //    $roles->add_cap( 'delete_consulta' ); 
 }
+
+remove_role( 'subscriber' );
+remove_role( 'editor' );
+remove_role( 'contributor' );
+remove_role( 'author' );
+
 ?>

@@ -32,10 +32,13 @@ add_action('wp_enqueue_scripts' , 'carrega_estilos');
 $diretorio_filho = get_stylesheet_directory();
 
 
-/**/
+/* removendo funções padroes do wp, adiciona função(nivel de acesso) paciente, especialista e recepcionista */
+require_once($diretorio_filho . '/manager_roles.php');
+
+/* cria o custom post type 'cpt_consulta' */
 require_once($diretorio_filho . '/cpt_consulta.php');
 
-/*meta box para dados do consulta*/
+/*meta box de dados para o 'cpt_consulta' */
 require_once($diretorio_filho . '/cpt_consulta_meta_box.php');
 
 /* arquivo responsavel por inseir meta dados no usuario especialista*/
@@ -50,18 +53,12 @@ require_once($diretorio_filho . '/dashboard_especialista.php');
 /*tela com funcionalidades do recepcionista*/
 require_once($diretorio_filho . '/dashboard_recepcionista.php');
 
-/* removendo funções padroes do wp*/
-require_once($diretorio_filho . '/remove_roles_default.php');
-
-/* adiciona função(nivel de acesso) paciente, especialista e recepcionista */
-require_once($diretorio_filho . '/add_roles_pac_esp_rec.php');
-
 /* API GET event */
 require_once($diretorio_filho . '/endpoint/get_event.php');
 
 
 
-
+/* funções no escopo do tema, ou seja, acessivel dentro do tema */
 /* 
     retorna a role do usuario logado: administrator, especialista, paciente, recepcionista 
 */
