@@ -56,21 +56,23 @@ function lista_consultas($lista_consultas){
 	<ul>
 		<?php  	
 		foreach ($lista_consultas as $agendada) {
-
-			$data =  esc_attr(get_post_meta( $agendada->ID, 'data', true ) ); 
-			$hora_inicio =  esc_attr(get_post_meta( $agendada->ID, 'hora_inicio', true ) ); 
-			$hora_termino =  esc_attr(get_post_meta( $agendada->ID, 'hora_termino', true ) ); 
-			$paciente = esc_attr( get_post_meta( $agendada->ID, 'paciente_id', true));
-			$especialista = esc_attr( get_post_meta( $agendada->ID, 'especialista_id', true));
-			$consulta_realizada = esc_attr( get_post_meta( $agendada->ID, 'consulta_realizada', true));
-			
-		 	echo '<li>';
-				echo '<form method="post">';
-				 	echo '<span>agendada Nº: '.$agendada->ID.' | Paciente:'.$paciente.' | Especialista: '.$especialista.'| Data: '.$data.' '.$hora_inicio.' às '.$hora_termino.'</span>';
-				 	echo '<input type="hidden" value="'.$agendada->ID.'" name="consulta_id"  readonly>';
-				 	echo '<input class="subput round" type="submit" name="editar_form" value="Editar consulta"/>';
-			 	echo '</form>';
-			echo '</li>';
+			$cancelar =  esc_attr(get_post_meta( $agendada->ID, 'cancelar', true ) ); 
+			if ($cancelar == 'off') {
+				$data =  esc_attr(get_post_meta( $agendada->ID, 'data', true ) ); 
+				$hora_inicio =  esc_attr(get_post_meta( $agendada->ID, 'hora_inicio', true ) ); 
+				$hora_termino =  esc_attr(get_post_meta( $agendada->ID, 'hora_termino', true ) ); 
+				$paciente = esc_attr( get_post_meta( $agendada->ID, 'paciente_id', true));
+				$especialista = esc_attr( get_post_meta( $agendada->ID, 'especialista_id', true));
+				$consulta_realizada = esc_attr( get_post_meta( $agendada->ID, 'consulta_realizada', true));
+				
+			 	echo '<li>';
+					echo '<form method="post">';
+					 	echo '<span>agendada Nº: '.$agendada->ID.' | Paciente:'.$paciente.' | Especialista: '.$especialista.'| Data: '.$data.' '.$hora_inicio.' às '.$hora_termino.'</span>';
+					 	echo '<input type="hidden" value="'.$agendada->ID.'" name="consulta_id"  readonly>';
+					 	echo '<input class="subput round" type="submit" name="editar_form" value="Editar consulta"/>';
+				 	echo '</form>';
+				echo '</li>';
+			}
 		}
 		?>
 	</ul>

@@ -212,7 +212,7 @@
 	        </div>
 
 	        <div>
-	        	<label for="cancelar">Cancelar agendamento de consulta?</label>
+	        	<label for="cancelar">Cancelar/excluir agendamento de consulta?</label>
 	        	<input type="checkbox" name="cancelar"
 			    <?php if ($dados_cpt_consulta): ?>
 			        <?php $cancelar = esc_attr( get_post_meta( $dados_cpt_consulta->ID, 'cancelar', true ) ); ?>
@@ -255,9 +255,6 @@
 /*https://stackoverflow.com/questions/4321914/wp-insert-post-with-a-form*/
 /*recebe dados do formulario*/
 if(isset($_POST['botao_form'])) {
-    //echo "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy";
-    //var_dump($_POST);
-
     $post_title   = 'P: '.$_POST['paciente_id'].' - E'.$_POST['especialista_id'].' '.$_POST['data'] ;
     $post_content = $_POST['relatorio'];//post_content do post
     $recepcionista_id = $_POST['recepcionista_id'];
@@ -284,7 +281,6 @@ if(isset($_POST['botao_form'])) {
     $consulta_id = wp_insert_post($insert_consulta);
     // add meta dados a nova cpt_consulta
     foreach ($campos_input as $campo) {
-    	//echo $campo.'::: '.$_POST[$campo];
     	if (isset($_POST[$campo])) {
 	    	update_post_meta($consulta_id, $campo, esc_attr($_POST[$campo]) ); 
     	}
