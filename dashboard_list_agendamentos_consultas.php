@@ -16,7 +16,7 @@
 	<div>
 		<h3>Lista ultimas consultas agendadas</h3>
 		<?php 
-		$lista_agendadas = list_all_consultas(get_current_user_id(), 'false');
+		$lista_agendadas = list_all_consultas(get_current_user_id(), 'off');
 		lista_consultas($lista_agendadas);
 		 ?>
 	</div>
@@ -24,7 +24,7 @@
 	<div>
 		<h3>Lista de todas as consultas realizadas</h3>
 		<?php  					
-		$lista_consultas = list_all_consultas(get_current_user_id(), 'true');
+		$lista_consultas = list_all_consultas(get_current_user_id(), 'on');
 		lista_consultas($lista_consultas);
 		?>
 	</div>
@@ -35,8 +35,8 @@ function list_all_consultas($usuario, $consulta_realizada){
 	$argumentos = array(
 			'posts_per_page' => 10, 
 			'post_type' 	=> 'consulta', 
-			//'meta_key' 		=> 'consulta_realizada',
-			//'meta_value' 	=> $consulta_realizada,
+			'meta_key' 		=> 'consulta_realizada',
+			'meta_value' 	=> $consulta_realizada,
 		);
 
 	if (role_logada() == 'especialista') {
@@ -62,15 +62,14 @@ function lista_consultas($lista_consultas){
 			$hora_termino =  esc_attr(get_post_meta( $agendada->ID, 'hora_termino', true ) ); 
 			$paciente = esc_attr( get_post_meta( $agendada->ID, 'paciente_id', true));
 			$especialista = esc_attr( get_post_meta( $agendada->ID, 'especialista_id', true));
-
+			$consulta_realizada = esc_attr( get_post_meta( $agendada->ID, 'consulta_realizada', true));
 			
 		 	echo '<li>';
-			echo '<form method="post">';
-
-		 	echo '<span>agendada Nº: '.$agendada->ID.' | Paciente:'.$paciente.' | Especialista: '.$especialista.'| Data: '.$data.' '.$hora_inicio.' às '.$hora_termino.'</span>';
-		 	echo '<input type="hidden" value="'.$agendada->ID.'" name="consulta_id"  readonly>';
-		 	echo '<input class="subput round" type="submit" name="editar_form" value="Editar consulta"/>';
-		 	echo '</form>';
+				echo '<form method="post">';
+				 	echo '<span>agendada Nº: '.$agendada->ID.' | Paciente:'.$paciente.' | Especialista: '.$especialista.'| Data: '.$data.' '.$hora_inicio.' às '.$hora_termino.'</span>';
+				 	echo '<input type="hidden" value="'.$agendada->ID.'" name="consulta_id"  readonly>';
+				 	echo '<input class="subput round" type="submit" name="editar_form" value="Editar consulta"/>';
+			 	echo '</form>';
 			echo '</li>';
 		}
 		?>

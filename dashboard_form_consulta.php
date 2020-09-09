@@ -201,12 +201,10 @@
 	        	<input type="checkbox" name="consulta_realizada"
 			    <?php if ($dados_cpt_consulta): ?>
 			    	<?php $consulta_realizada = esc_attr( get_post_meta( $dados_cpt_consulta->ID, 'consulta_realizada', true ) ); ?>
-			    		<?php if (isset($consulta_realizada)): ?>
-			    			value="<?php echo $consulta_realizada; ?>"
+			    		<?php if ($consulta_realizada == 'on'): ?>
+			    			checked
 			    		<?php endif; ?>
-	    		<?php else: ?>
-	    			value="false"
-			    <?php endif; ?>
+				    <?php endif; ?>
 			   <?php if(!(role_logada() == 'especialista') && !(role_logada() == 'administrator'))  {
 	        		echo ' readonly="true" ';
         		} ?>
@@ -218,11 +216,9 @@
 	        	<input type="checkbox" name="cancelar"
 			    <?php if ($dados_cpt_consulta): ?>
 			        <?php $cancelar = esc_attr( get_post_meta( $dados_cpt_consulta->ID, 'cancelar', true ) ); ?>
-			    		<?php if (isset($cancelar)): ?>
-			    			value="<?php echo $cancelar; ?>"
+			    		<?php if ($cancelar == 'on'): ?>
+			    			checked
 			    		<?php endif; ?>
-	    		<?php else: ?>
-	    			value="false"
 			    <?php endif; ?>
 			    <?php if(!(role_logada() == 'recepcionista') && !(role_logada() == 'administrator'))  {
 	        		echo ' readonly="true" ';
@@ -259,8 +255,8 @@
 /*https://stackoverflow.com/questions/4321914/wp-insert-post-with-a-form*/
 /*recebe dados do formulario*/
 if(isset($_POST['botao_form'])) {
-    echo "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy";
-    var_dump($_POST);
+    //echo "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy";
+    //var_dump($_POST);
 
     $post_title   = 'P: '.$_POST['paciente_id'].' - E'.$_POST['especialista_id'].' '.$_POST['data'] ;
     $post_content = $_POST['relatorio'];//post_content do post
@@ -273,7 +269,7 @@ if(isset($_POST['botao_form'])) {
 
 
     //meta dados
-    $campos_input = array('data', 'hora_termino', 'hora_inicio', 'especialista_id', 'paciente_id', 'lista_de_remedios', 'motivo_da_consulta', 'marcar_volta', 'cancelar', 'consulta_realizada' );
+    $campos_input = array('data', 'hora_termino', 'hora_inicio', 'especialista_id', 'paciente_id', 'lista_de_remedios', 'motivo_da_consulta', 'marcar_volta' );
 
     $insert_consulta = array(
       'post_type' => 'consulta', 
@@ -288,8 +284,22 @@ if(isset($_POST['botao_form'])) {
     $consulta_id = wp_insert_post($insert_consulta);
     // add meta dados a nova cpt_consulta
     foreach ($campos_input as $campo) {
-    	add_post_meta($consulta_id, $campo, esc_attr(isset($_POST[$campo])) ); 
-    	//add_post_meta($consulta_id, $campo, esc_attr($_POST[$campo]) ); 
+    	//echo $campo.'::: '.$_POST[$campo];
+    	if (isset($_POST[$campo])) {
+	    	update_post_meta($consulta_id, $campo, esc_attr($_POST[$campo]) ); 
+    	}
+    }
+
+    /*trata check quando nao enviar no POST, quando NAO é marcado */
+    if (isset($_POST['cancelar'])) {
+        update_post_meta($consulta_id, 'cancelar', 'on' ); 
+    }else{
+        update_post_meta($consulta_id, 'cancelar', 'off' ); 
+    }
+    if (isset($_POST['consulta_realizada'])) {
+        update_post_meta($consulta_id, 'consulta_realizada', 'on' ); 
+    }else{
+        update_post_meta($consulta_id, 'consulta_realizada', 'off' ); 
     }
 }      
 
