@@ -13,9 +13,14 @@
 				}
 			}
 			?>
+
+			<?php ?>
+
 			<?php if (isset($dados_cpt_consulta) && isset($dados_cpt_consulta->ID)): ?>
 				<h1>Consulta nº: <?php echo esc_attr($dados_cpt_consulta->ID); ?></h1>
-			<?php else: ?>			
+			<?php elseif ( in_array(role_logada(), ['especialista', 'paciente']) ): ?>
+				<h1>Pesquise agendamento/consulta</h1>			
+			<?php else: ?>
 				<h1>Agendar nova Consulta</h1>
 			<?php endif; ?>
 
@@ -134,11 +139,8 @@
 		        if(!(role_logada() == 'especialista') && !(role_logada() == 'administrator'))  {
 	        		echo 'readonly';
         		} ?>
-        		>
-		        	<?php if ($dados_cpt_consulta && $dados_cpt_consulta->post_content): ?>
-		        		<?php echo esc_attr( $dados_cpt_consulta->post_content ); ?>
-		        	<?php endif; ?>
-		    	</textarea>
+        		><?php if ($dados_cpt_consulta && $dados_cpt_consulta->post_content): ?>
+			<?php echo esc_attr($dados_cpt_consulta->post_content);?><?php endif; ?></textarea>
 		    </div>
 
 	    	<div class="meta-options campos">

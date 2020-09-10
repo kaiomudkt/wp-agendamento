@@ -31,23 +31,33 @@
 </div>
 
 <?php 
+//https://wordpress.stackexchange.com/questions/181381/wp-query-with-multiple-meta-fields-filter
 function list_all_consultas($usuario, $consulta_realizada){
-	$argumentos = array(
-			'posts_per_page' => 10, 
-			'post_type' 	=> 'consulta', 
-			'meta_key' 		=> 'consulta_realizada',
-			'meta_value' 	=> $consulta_realizada,
-		);
-
+	$args_user = array('compare' => '=',);
 	if (role_logada() == 'especialista') {
-		$argumentos['meta_key']	= 'especialista_id';
-		$argumentos['meta_value'] = $usuario;
+		$args_user['key']	= 'especialista_id';
+		$args_user['value'] = $usuario;
+
 	}elseif (role_logada() == 'paciente') {
-		$argumentos['meta_key']	= 'paciente_id';
-		$argumentos['meta_value'] = $usuario;
+		$args_user['key']	= 'paciente_id';
+		$args_user['value'] = $usuario;
 	}
+	$meta_query = array(
+		'relation' => 'AND',
+		[
+			'key' => 'consulta_realizada',
+			'value' => $consulta_realizada,
+		],
+		$args_user,
+	);
+	$arg_query = array(
+		'posts_per_page' => 10, 
+		'post_type' 	=> 'consulta', 
+		'meta_query' => $meta_query,
+		//'orderby' => 'asc',
+	);
 	
-	$query_consultas = new WP_Query($argumentos);
+	$query_consultas = new WP_Query($arg_query);
 	return $query_consultas->get_posts();
 }
 
@@ -69,7 +79,7 @@ function lista_consultas($lista_consultas){
 					echo '<form method="post">';
 					 	echo '<span>agendada Nº: '.$agendada->ID.' | Paciente:'.$paciente.' | Especialista: '.$especialista.'| Data: '.$data.' '.$hora_inicio.' às '.$hora_termino.'</span>';
 					 	echo '<input type="hidden" value="'.$agendada->ID.'" name="consulta_id"  readonly>';
-					 	echo '<input class="subput round" type="submit" name="editar_form" value="Editar consulta"/>';
+					 	echo '<input class="subput round" type="submit" name="editar_form" value="Visualizar consulta"/>';
 				 	echo '</form>';
 				echo '</li>';
 			}
