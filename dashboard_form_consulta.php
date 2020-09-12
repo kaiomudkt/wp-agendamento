@@ -300,12 +300,4 @@ if(isset($_POST['botao_form'])) {
         update_post_meta($consulta_id, 'consulta_realizada', 'off' ); 
     }
 }      
-
-function list_pacientes(){
-	return get_users( ['role__in' => 'paciente'] );
-}
-
-function list_especialistas(){
-	return get_users( ['role__in' => 'especialista'] );
-}
 ?>      

@@ -11,6 +11,10 @@ function carrega_estilos(){
         get_stylesheet_directory_uri() . '/style.css',
         array( $parent_style )
     );
+    wp_enqueue_script('general-script', get_stylesheet_directory_uri() . '/assets/general.js');
+	wp_enqueue_script('jquery-ui-datepicker');
+    wp_register_style('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
+    wp_enqueue_style( 'jquery-ui' ); 
 
     // wp_enqueue_style('estilos-pai', get_template_directory_uri() . '/style.css');
     // wp_enqueue_style('estilo_filho_1', get_stylesheet_directory_uri() . '/style.css');
@@ -78,4 +82,12 @@ function id_usuario_logado(){
     $user = wp_get_current_user();
     $user_id = ( array ) $user->ID;
     return implode(' ', $user_id);//converte array para string
+}
+
+function list_pacientes(){
+	return get_users( ['role__in' => 'paciente'] );
+}
+
+function list_especialistas(){
+	return get_users( ['role__in' => 'especialista'] );
 }
