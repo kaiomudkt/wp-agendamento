@@ -25,12 +25,22 @@ add_action('rest_api_init', function () {
 		$ano = $parametros['ano'];
 		$especialista = $parametros['especialista'];
 
-		$condicoes = [
+		$args = [
+			'post_type' => 'consulta',
+			'posts_per_page' => -1,
 			'meta_query' => [
+				'relation' => 'AND',
 				[
 					'key' => 'data',
-					'value' => $ano . '-' .  $mes . '-%',
-					'compare' => 'LIKE'
+					'value' => $ano . '-' .  $mes . '-01',
+					'compare' => '>=',
+					'type' => 'date'
+				],
+				[
+					'key' => 'data',
+					'value' => $ano . '-' .  $mes . '-31',
+					'compare' => '<=',
+					'type' => 'date'
 				],
 				[
 					'key' => 'especialista_id',
@@ -38,12 +48,6 @@ add_action('rest_api_init', function () {
 					'compare' => '='
 				]
 			]
-		];
-
-		$args = [
-			'post_type' => 'consulta',
-			'posts_per_page' => -1,
-			$condicoes
 		];
 
 		$query = new WP_Query($args);

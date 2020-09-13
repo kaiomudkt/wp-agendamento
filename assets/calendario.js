@@ -2,7 +2,7 @@ var calendar, mesAtual, anoAtual, especialistaAtual;
 
 function buscaAgendamentos(dia, mes, ano) {
     jQuery.ajax({
-        url: '/semanacomp/index.php/wp-json/v1/agendamentos/',
+        url: base_url + '/wp-json/v1/agendamentos/',
         data: {
             mes: mes,
             ano: ano,

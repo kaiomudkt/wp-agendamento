@@ -16,6 +16,7 @@ function carrega_estilos(){
     wp_register_style('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
     wp_enqueue_style( 'jquery-ui' ); 
 
+    echo '<script> const base_url = "' . site_url() . '"; </script>';
     // wp_enqueue_style('estilos-pai', get_template_directory_uri() . '/style.css');
     // wp_enqueue_style('estilo_filho_1', get_stylesheet_directory_uri() . '/style.css');
 
