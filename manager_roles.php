@@ -19,11 +19,8 @@ function add_all_roles(){
 		'delete_posts' => false,
 		'publish_posts' => false,
 		'upload_files' => true,
-		/*'manage_categories' => true,*/
-		/*'custom_cap' => true,*/
-		/*'manage_capabilities' => true,*/
 	);
-	//add permissao de comentario
+	//(pull request)adicionar permissao de comentario
 	$lista_acessos_adm = array('edit_consulta', 'edit_consultas', 'edit_other_consultas', 'publish_consultas', 'read_consulta', 'read_private_consultas', 'delete_consulta', 'nivel_de_acesso_paciente', 'nivel_de_acesso_especialista', 'nivel_de_acesso_recepcionista');
 	$lista_acessos_paciente = array('publish_consultas', 'read_consulta');
 	$lista_acessos_especialista = array('edit_consulta', 'read_consulta', 'read_private_consultas');
@@ -36,49 +33,25 @@ function add_all_roles(){
 	add_gereneric_role('recepcionista', 'Recepcionista', $capacidades, 
 		'nivel_de_acesso_recepcionista', $lista_acessos_recepcionista);
 
+	//add acessos customizados do cpt-consulta ao super admin
 	$roles_adm = get_role('administrator');
-	//add permissao a acessos as telas de paciente, especialista e recepcionista
-	// $roles_adm->add_cap('nivel_de_acesso_paciente');
-	// $roles_adm->add_cap('nivel_de_acesso_especialista');
-	// $roles_adm->add_cap('nivel_de_acesso_recepcionista');
-	//$roles_adm->add_cap('nivel_de_acesso_consulta');
-
-	//add acessos customizados do cpt-consulta ao adm
 	foreach ($lista_acessos_adm as $acesso) {
 		$roles_adm->add_cap($acesso);
 	}
-	// $roles_adm->add_cap( 'edit_consulta' ); 
- //    $roles_adm->add_cap( 'edit_consultas' ); 
- //    $roles_adm->add_cap( 'edit_other_consultas' ); 
- //    $roles_adm->add_cap( 'publish_consultas' ); 
- //    $roles_adm->add_cap( 'read_consulta' ); 
- //    $roles_adm->add_cap( 'read_private_consultas' ); 
- //    $roles_adm->add_cap( 'delete_consulta' ); 
 }
 
 function add_gereneric_role($id, $nome, $argumentos, $nivel_de_acesso_tela, $nivel_de_acesso_consulta){
-	//$roles = add_role($id,$nome,$argumentos);
 	add_role($id,$nome,$argumentos);//cria role custom
 	$roles = get_role($id);
 	$roles->add_cap($nivel_de_acesso_tela);
-	//$roles->add_cap('nivel_de_acesso_consulta');
-	//add novos niveis de acesso a nova role
 	foreach ($nivel_de_acesso_consulta as $acesso) {
 		$roles->add_cap($acesso);
 	}
-
-	// $roles->add_cap( 'edit_consulta' ); 
- //    $roles->add_cap( 'edit_consultas' ); 
- //    $roles->add_cap( 'edit_other_consultas' ); 
- //    $roles->add_cap( 'publish_consultas' ); 
- //    $roles->add_cap( 'read_consulta' ); 
- //    $roles->add_cap( 'read_private_consultas' ); 
- //    $roles->add_cap( 'delete_consulta' ); 
 }
-
-remove_role( 'subscriber' );
-remove_role( 'editor' );
-remove_role( 'contributor' );
-remove_role( 'author' );
+/* remeove os niveis de acessos padroes do wordpress */
+remove_role('subscriber');
+remove_role('editor');
+remove_role('contributor');
+remove_role('author');
 
 ?>
