@@ -72,7 +72,7 @@
 		    </div>
 
 		    <div>
-				<label>Recepcionista (ID)</label>
+				<label>Recepcionista</label>
 				<input type="number" name="recepcionista_id" readonly required
 				<?php if ($dados_cpt_consulta): ?>
 					<?php if ($dados_cpt_consulta->post_author): ?>
