@@ -1,21 +1,8 @@
 <?php 
 /*
 	este arquivo é responsável por inserir meta dados no consulta
-
-dados a ser armazenados:
-	identificador do paciente,
-	identificador do especialista,
-	duração do atendimento,
-	local do atendimento,
-	notas do especialista sobre o paciente,
-	solicitação de remedios,
-	horário de inicio,
-	horário de termino,
-	(acho legal colocar dados dinamicos) 
-
+    https://css-tricks.com/snippets/wordpress/custom-loop-based-on-custom-fields/
 */
-// https://css-tricks.com/snippets/wordpress/custom-loop-based-on-custom-fields/
-
 
 /**
  * Register meta boxes.
@@ -61,44 +48,14 @@ function salva_meta_box( $post_id ) {
         'marcar_volta',
     ];
     /*
-    'foreach percorre o vetor 'fields_consulta'
-    sendo que cada item do vetor é um parametro/field */
+        'foreach' percorre o vetor 'fields_consulta'
+        sendo que cada item do vetor é um parametro/field.
+        salva no post deste key: '$post_id', chave: valor
+    */
     foreach ( $fields_consulta as $field ) {
-        if ( array_key_exists( $field, $_POST ) ) {/*existe esse elemento no na estrutura de dados (array) ? */
-            /* salva no post deste '$post_id',
-            chave: valor */
+        if ( array_key_exists($field, $_POST) ) {
             update_post_meta( $post_id, $field, sanitize_text_field( $_POST[$field] ) );
-        }else{
-            // echo 'nao exite esse parameto' . $field;
         }
     }
 }
 add_action( 'save_post', 'salva_meta_box' );
-
-
-?>
-<?php
-
-/*tentando remover  a meta box 'discussao', mais ainda nao consegui*/
-add_action( 'default_hidden_meta_boxes', 'acme_remove_meta_boxes', 10, 2 );
-/**
- * Removes the category, author, post excerpt, and slug meta boxes.
- *
- * @since    1.0.0
- *
- * @param    array    $hidden    The array of meta boxes that should be hidden for Acme Post Types
- * @param    object   $screen    The current screen object that's being displayed on the screen
- * @return   array    $hidden    The updated array that removes other meta boxes
- */
-function acme_remove_meta_boxes( $hidden, $screen ) {
-    if ( 'acme_post_type' == $screen->id ) {
-        $hidden = array(
-            'acme_post_type_categorydiv',
-            'discussion',
-            'postexcerpt',
-            'commentstatusdiv'
-            );
-
-    }
-    return $hidden;    
-}

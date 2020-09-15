@@ -11,8 +11,8 @@ Por existir múltiplas aplicações e uma gama de plugins, iremos fornecer uma p
 
 #### PROGRAMA DO MINICURSO:
 O curso portanto será dividido em:
-- Como instalar o WordPress (40 min)
-	- XAMP;
+- Como instalar o WordPress
+	- XAMPP ou Docker;
 	- phpmyadmin
 - WordPress e sua estrutura (1.2 hora)
 	- sistema de gerenciamento de conteúdo - CMS

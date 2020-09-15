@@ -1,17 +1,15 @@
 <?php 
 	/*
-	Lista consultas, ou seja,
-	a consulta ja foi realizada.
-	*/
-	/*
-		Lista agendamentos, ou seja,
-		consultas que foram marcadas, mas ainda não foram realizadas
+		Lista consultas, ou seja, a consulta ja foi realizada.
+
+		Lista agendamentos, ou seja, consultas que foram marcadas, mas ainda não foram realizadas
 	*/
 ?>
 <div class="container">
 	<h1>Seja bem vindo <?php echo nome_usuario_logado(); ?> | Identificador(ID): <?php echo id_usuario_logado(); ?></h1>
 	<h2>Nivel de acesso: <?php echo role_logada(); ?></h2>
 </div>
+
 <div>
 	<div>
 		<h3>Lista ultimas consultas agendadas</h3>
@@ -20,7 +18,6 @@
 		lista_consultas($lista_agendadas);
 		 ?>
 	</div>
-
 	<div>
 		<h3>Lista de todas as consultas realizadas</h3>
 		<?php  					
@@ -31,13 +28,14 @@
 </div>
 
 <?php 
-//https://wordpress.stackexchange.com/questions/181381/wp-query-with-multiple-meta-fields-filter
+/*
+	https://wordpress.stackexchange.com/questions/181381/wp-query-with-multiple-meta-fields-filter
+*/
 function list_all_consultas($usuario, $consulta_realizada){
 	$args_user = array('compare' => '=',);
 	if (role_logada() == 'especialista') {
 		$args_user['key']	= 'especialista_id';
 		$args_user['value'] = $usuario;
-
 	}elseif (role_logada() == 'paciente') {
 		$args_user['key']	= 'paciente_id';
 		$args_user['value'] = $usuario;
@@ -54,7 +52,6 @@ function list_all_consultas($usuario, $consulta_realizada){
 		'posts_per_page' => 10, 
 		'post_type' 	=> 'consulta', 
 		'meta_query' => $meta_query,
-		//'orderby' => 'asc',
 	);
 	
 	$query_consultas = new WP_Query($arg_query);
@@ -88,5 +85,4 @@ function lista_consultas($lista_consultas){
 	</ul>
 	<?php
 }
-
 ?>

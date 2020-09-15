@@ -73,6 +73,7 @@
             <?php endif; ?>
           ><!-- fi input-->
     </div>
+    
     <div>
         <label>Horário de término</label>
         <input type="time" name="hora_termino" min="07:00" max="17:00" required

@@ -23,18 +23,11 @@ $layout = onepress_get_layout();
 			<div id="primary" class="content-area">
 				<main id="main" class="site-main" role="main">
 					<?php echo '<h1><a href="'.wp_login_url().'">Logue</a></h1>'; ?>
-					<?php 
-					// if( !is_user_logged_in() ) {
-					// 	wp_redirect( wp_login_url() );
-    				//	exit;
-					// } ?>
 				</main><!-- #main -->
 			</div><!-- #primary -->
-
             <?php if ( $layout != 'no-sidebar' ) { ?>
                 <?php get_sidebar(); ?>
             <?php } ?>
-
 		</div><!--#content-inside -->
 	</div><!-- #content -->
 

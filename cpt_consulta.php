@@ -3,16 +3,7 @@
 	Este arquivo é responsável por juntar os dados do atendimento em sí,
 	como relacionar os usuários: paciente e atendente, e outros dados como data, tipo de atendimento, especialidade, duração do atendimento
 */
-/*
-dados a ser armazenados:
-identificador paciente,
-identificador especialista,
-duração do atendimento,
-local do atendimento,
-notas do especialista sobre o paciente,
-solicitação de remedios,
-(acho legal colocar dados dinamicos) 
-*/
+
 function consulta_post_type() {
 	$labels = array(
 		'name'                  => _x( 'consulta', 'Post Type General Name', 'text_domain' ),
@@ -68,71 +59,12 @@ function consulta_post_type() {
 		'menu_icon'				=> 'dashicons-clipboard',
 		'rewrite' 				=> array('slug' => 'consulta'),
 		'query_var'				=> true,
-		/*'capability_type'     => 'post',*//*nivel de acesso post como padrao*/
-		/*'capability_type'     => 'nivel_de_acesso_consulta',*//*role custom*/
-        /*'map_meta_cap'        	=> true,*//*É importante observar que fazer isso remove a capacidade dos administradores ou editores de editar esse tipo de postagem personalizada até que especificamente concedamos a eles permissão.*/
-        'capabilities' 			=> array(
-							        'edit_post' => 'edit_consulta',
-							        'edit_posts' => 'edit_consultas',
-							        'edit_others_posts' => 'edit_other_consultas',
-							        'publish_posts' => 'publish_consultas',
-							        'read_post' => 'read_consulta',
-							        'read_private_posts' => 'read_private_consultas',
-							        'delete_post' => 'delete_consulta'
-								),/*capacidades customizadas, que devem ser inseridas nas roles*/
+		'capability_type'     => 'post',/*nivel de acesso post como padrao*/
 	);
-	//if(!post_type_exists('consulta')){
+	if(!post_type_exists('consulta')){
 		register_post_type( 'consulta', $args );//consulta é a chave identificadora do Custom Post Type consulta
-    //}
+    }
 
 }
 //add_action( 'init', 'consulta_post_type');
 add_action( 'after_setup_theme', 'consulta_post_type');
-
-//esse metodo permite que o CPT-consulta seja listado por categoria
-add_filter('pre_get_posts', 'query_post_type');
-function query_post_type($query) {
-  if( is_category() ) {
-    $post_type = get_query_var('post_type');
-    if($post_type)
-        $post_type = $post_type;
-    else
-        $post_type = array('nav_menu_item', 'post', 'consulta');
-    $query->set('post_type',$post_type);
-    return $query;
-    }
-}
-
-add_action( 'init', 'create_category_specialist', 0 );
-function create_category_specialist(){
-	$labels = array(
-        'name'              => _x( 'Genres', 'taxonomy general name', 'textdomain' ),
-        'singular_name'     => _x( 'Genre', 'taxonomy singular name', 'textdomain' ),
-        'search_items'      => __( 'Search Genres', 'textdomain' ),
-        'all_items'         => __( 'All Genres', 'textdomain' ),
-        'parent_item'       => __( 'Parent Genre', 'textdomain' ),
-        'parent_item_colon' => __( 'Parent Genre:', 'textdomain' ),
-        'edit_item'         => __( 'Edit Genre', 'textdomain' ),
-        'update_item'       => __( 'Update Genre', 'textdomain' ),
-        'add_new_item'      => __( 'Add New Genre', 'textdomain' ),
-        'new_item_name'     => __( 'New Genre Name', 'textdomain' ),
-        'menu_name'         => __( 'Genre', 'textdomain' ),
-    );
- 
-    $args = array(
-        'hierarchical'      => true,
-        'labels'            => $labels,
-        'show_ui'           => true,
-        'show_admin_column' => true,
-        'query_var'         => true,
-        'rewrite'           => array( 'slug' => 'genre' ),
-    );
-
-	register_taxonomy( 'especialista', 'Especialista', $args );
-
-}
-
-/*
-https://3.7designs.co/blog/2014/08/restricting-access-to-custom-post-types-using-roles-in-wordpress/
-*/
-

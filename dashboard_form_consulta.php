@@ -14,8 +14,6 @@
 			}
 			?>
 
-			<?php ?>
-
 			<?php if (isset($dados_cpt_consulta) && isset($dados_cpt_consulta->ID)): ?>
 				<h1>Consulta nº: <?php echo esc_attr($dados_cpt_consulta->ID); ?></h1>
 			<?php elseif ( in_array(role_logada(), ['especialista', 'paciente']) ): ?>
@@ -236,8 +234,6 @@
 				comentarios
 			</div>
 
-			
-
 			<?php if (isset($dados_cpt_consulta)): ?>
 				<?php if ($dados_cpt_consulta->ID): ?>
 					<input type="hidden" name="consulta_id" required
@@ -254,8 +250,10 @@
 </div>
 
 <?php 
-/*https://stackoverflow.com/questions/4321914/wp-insert-post-with-a-form*/
-/*recebe dados do formulario*/
+/*
+	https://stackoverflow.com/questions/4321914/wp-insert-post-with-a-form
+	recebe dados do formulario
+*/
 if(isset($_POST['botao_form'])) {
     $post_title   = 'P: '.$_POST['paciente_id'].' - E'.$_POST['especialista_id'].' '.$_POST['data'] ;
     $post_content = $_POST['relatorio'];//post_content do post
@@ -265,8 +263,6 @@ if(isset($_POST['botao_form'])) {
     }else{
     	$atualiza_consulta_id = 0;
     }
-
-
     //meta dados
     $campos_input = array('data', 'hora_termino', 'hora_inicio', 'especialista_id', 'paciente_id', 'lista_de_remedios', 'motivo_da_consulta', 'marcar_volta' );
 
